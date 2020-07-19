@@ -25,11 +25,13 @@ declare global {
       interface Settings {
         size?: Partial<Vec3>;
         mapId?: number;
+        name?: string;
       }
     }
     interface Entity extends ig.Class {
       settings: unknown; // an empty object, appears to be unused
       coll: ig.CollEntry;
+      name: string | null;
 
       reset(this: this, x: number, y: number, z: number, settings: ig.Entity.Settings): void;
       getAlignedPos(this: this, alignment: ig.ENTITY_ALIGN, dest?: Vec3 | null): Vec3;

@@ -99,8 +99,13 @@ declare global {
     var GuiDrawable: GuiDrawableConstructor;
 
     interface GuiTransform extends ig.Class {
-      setTranslate(this: this, x: number, y: number): this;
+      setAlpha(this: this, alpha: number): this;
       setClip(this: this, x: number, y: number): this;
+      setTranslate(this: this, x: number, y: number): this;
+      setScale(this: this, x: number, y: number): this;
+      setRotate(this: this, angle: number): this;
+      setPivot(this: this, x: number, y: number): this;
+      isComplex(this: this): boolean;
     }
     interface GuiTransformConstructor extends ImpactClass<GuiTransform> {}
     var GuiTransform: GuiTransformConstructor;

@@ -18,5 +18,9 @@ declare global {
       ): Action;
     }
     var Action: ActionConstructor;
+
+    type ActionStepBase = ig.StepBase;
+    var ActionStepBase: typeof ig.StepBase;
+    namespace ACTION_STEP {}
   }
 }

@@ -8,6 +8,7 @@ declare global {
       name: string;
       parallelMove: boolean;
       repeating: boolean;
+      rootStep: ig.ActionStepBase | null;
     }
     interface ActionConstructor extends ImpactClass<Action> {
       new (
@@ -19,7 +20,9 @@ declare global {
     }
     var Action: ActionConstructor;
 
-    type ActionStepBase = ig.StepBase;
+    interface ActionStepBase extends ig.StepBase {
+      start(this: this, stepData: ig.ActorEntity): void;
+    }
     var ActionStepBase: typeof ig.StepBase;
     namespace ACTION_STEP {}
   }

@@ -5,73 +5,114 @@ export {};
 
 declare global {
   namespace ig.ACTION_STEP {
-    interface LABEL extends ig.ActionStepBase {}
+    interface LABEL extends ig.ActionStepBase {
+      name: string;
+    }
     interface LABEL_CONSTRUCTOR extends ImpactClass<LABEL> {
-      new(settings: {name: string}): LABEL
+      new(settings: Pick<LABEL, 'name'>): LABEL
     }
     var LABEL: LABEL_CONSTRUCTOR;
 
-    interface GOTO_LABEL extends ig.ActionStepBase {}
+    interface GOTO_LABEL extends ig.ActionStepBase {
+      name: string;
+    }
     interface GOTO_LABEL_CONSTRUCTOR extends ImpactClass<GOTO_LABEL> {
-      new(settings: {name: string}): GOTO_LABEL
+      new(settings: Pick<GOTO_LABEL, 'name'>): GOTO_LABEL
     }
     var GOTO_LABEL: GOTO_LABEL_CONSTRUCTOR;
 
     interface SELECT_RANDOM extends ig.ActionStepBase {}
     interface SELECT_RANDOM_CONSTRUCTOR extends ImpactClass<SELECT_RANDOM> {
-      new(settings: unknown): SELECT_RANDOM
+      new(settings: ig.Event.RandomDistribution): SELECT_RANDOM
     }
     var SELECT_RANDOM: SELECT_RANDOM_CONSTRUCTOR;
 
     interface RESET_ACTOR extends ig.ActionStepBase {}
     interface RESET_ACTOR_CONSTRUCTOR extends ImpactClass<RESET_ACTOR> {
-      new(settings: unknown): RESET_ACTOR
+      new(settings: {}): RESET_ACTOR
     }
     var RESET_ACTOR: RESET_ACTOR_CONSTRUCTOR;
 
-    interface WAIT extends ig.ActionStepBase {}
+    interface WAIT extends ig.ActionStepBase {
+      time: ig.Event.NumberExpression,
+      aggroTime: ig.Event.NumberExpression,
+      assistSlow: boolean
+    }
     interface WAIT_CONSTRUCTOR extends ImpactClass<WAIT> {
-      new(settings: {
-        time: number,
-        aggroTime?: number,
-        assistSlow?: boolean
-      }): WAIT
+      new(settings: Pick<WAIT, 'time' | 'aggroTime' | 'assistSlow'>): WAIT;
     }
     var WAIT: WAIT_CONSTRUCTOR;
 
-    interface WAIT_UNTIL extends ig.ActionStepBase {}
+    interface WAIT_UNTIL extends ig.ActionStepBase {
+      condition: ig.VarCondition;
+      maxTime: ig.Event.NumberExpression | undefined;
+    }
     interface WAIT_UNTIL_CONSTRUCTOR extends ImpactClass<WAIT_UNTIL> {
-      new(settings: unknown): WAIT_UNTIL
+      new(settings: {
+        condition: string,
+        maxTime?: ig.Event.NumberExpression
+      }): WAIT_UNTIL
     }
     var WAIT_UNTIL: WAIT_UNTIL_CONSTRUCTOR;
 
-    interface WAIT_RANDOM extends ig.ActionStepBase {}
+    interface WAIT_RANDOM extends ig.ActionStepBase {
+      minTime: ig.Event.NumberExpression,
+      maxTime: ig.Event.NumberExpression,
+    }
     interface WAIT_RANDOM_CONSTRUCTOR extends ImpactClass<WAIT_RANDOM> {
-      new(settings: unknown): WAIT_RANDOM
+      new(settings: {
+        minTime: ig.Event.NumberExpression,
+        maxTime: ig.Event.NumberExpression
+      }): WAIT_RANDOM
     }
     var WAIT_RANDOM: WAIT_RANDOM_CONSTRUCTOR;
 
     interface IF extends ig.ActionStepBase {}
     interface IF_CONSTRUCTOR extends ImpactClass<IF> {
-      new(settings: unknown): IF
+      new(settings: {
+        condition: string,
+        withElse?: boolean
+      }): IF
     }
     var IF: IF_CONSTRUCTOR;
 
-    interface WAIT_UNTIL_ON_GROUND extends ig.ActionStepBase {}
+    interface WAIT_UNTIL_ON_GROUND extends ig.ActionStepBase {
+      maxTime: number;
+      alsoBelowTarget: boolean;
+    }
     interface WAIT_UNTIL_ON_GROUND_CONSTRUCTOR extends ImpactClass<WAIT_UNTIL_ON_GROUND> {
-      new(settings: unknown): WAIT_UNTIL_ON_GROUND
+      new(
+        settings: Partial<Pick<WAIT_UNTIL_ON_GROUND, 'maxTime' | 'alsoBelowTarget'>>
+      ): WAIT_UNTIL_ON_GROUND
     }
     var WAIT_UNTIL_ON_GROUND: WAIT_UNTIL_ON_GROUND_CONSTRUCTOR;
 
-    interface WAIT_UNTIL_PLAYER_ON_TOP extends ig.ActionStepBase {}
+    interface WAIT_UNTIL_PLAYER_ON_TOP extends ig.ActionStepBase {
+      not: boolean;
+      maxTime: number;
+    }
     interface WAIT_UNTIL_PLAYER_ON_TOP_CONSTRUCTOR extends ImpactClass<WAIT_UNTIL_PLAYER_ON_TOP> {
-      new(settings: unknown): WAIT_UNTIL_PLAYER_ON_TOP
+      new(
+        settings: Partial<Pick<WAIT_UNTIL_PLAYER_ON_TOP, 'not' | 'maxTime'>>
+      ): WAIT_UNTIL_PLAYER_ON_TOP
     }
     var WAIT_UNTIL_PLAYER_ON_TOP: WAIT_UNTIL_PLAYER_ON_TOP_CONSTRUCTOR;
 
-    interface MOVE_FORWARD extends ig.ActionStepBase {}
+    interface MOVE_FORWARD extends ig.ActionStepBase {
+      time: number;
+      collideCancel: number | undefined;
+      stopBeforeEdge: boolean;
+      waitUntil: string | undefined;
+      maxTargetDistance: number;
+    }
     interface MOVE_FORWARD_CONSTRUCTOR extends ImpactClass<MOVE_FORWARD> {
-      new(settings: unknown): MOVE_FORWARD
+      new(settings: {
+        time: number,
+        collideCancel?: number,
+        stopBeforeEdge?: boolean,
+        waitUntil?: string,
+        maxTargetDistance?: number
+      }): MOVE_FORWARD
     }
     var MOVE_FORWARD: MOVE_FORWARD_CONSTRUCTOR;
 
@@ -566,7 +607,5 @@ declare global {
       new(settings: unknown): REMOVE_ANIM_MOD
     }
     var REMOVE_ANIM_MOD: REMOVE_ANIM_MOD_CONSTRUCTOR;
-
-
   }
 }
